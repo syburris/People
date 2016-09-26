@@ -13,6 +13,11 @@ public class Main {
 
 
     public static void main(String[] args) throws FileNotFoundException {
+        ArrayList<Person> people = readFile(PEOPLE);
+        System.out.println(people.toString());
+
+    }
+    public static ArrayList<Person> readFile(String peopleTextFile) throws FileNotFoundException {
         ArrayList<Person> people = new ArrayList<>();
         File file = new File(PEOPLE);
         Scanner fileScanner = null;
@@ -23,7 +28,6 @@ public class Main {
             Person person = new Person(Integer.valueOf(columns[0]),columns[1],columns[2],columns[3],columns[4],columns[5]);
             people.add(person);
         }
-        System.out.println(people.toString());
-
+        return people;
     }
 }
