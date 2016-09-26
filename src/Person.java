@@ -71,7 +71,7 @@ public class Person {
         return "Person{" +
                 firstName +
                 " " + lastName +
-                ", from " + country +
+                " from " + country +
                 "}" + "\n";
 
     }
