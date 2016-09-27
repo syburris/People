@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         people = readFile(PEOPLE);
-        sortPeople();
+        addToPeopleMap();
 
         for (String country : peopleMap.keySet()) {
             ArrayList<Person> personArrayList = new ArrayList<>();
@@ -34,17 +34,18 @@ public class Main {
         }
         return people;
     }
-    public static void sortPeople() {
+    public static void addToPeopleMap() {
         ArrayList<Person> peopleByCountry = null;
         for (Person person : people) {
             String country = person.getCountry();
             peopleByCountry = peopleMap.get(country);
             if (peopleByCountry == null) {
                 peopleByCountry = new ArrayList<>();
+
             }
             peopleByCountry.add(person);
             peopleMap.put(country,peopleByCountry);
         }
-        Collections.sort(peopleByCountry);
+        //Collections.sort(peopleByCountry);
     }
 }
