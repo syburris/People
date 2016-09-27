@@ -1,3 +1,5 @@
+import jodd.json.JsonSerializer;
+
 import java.io.*;
 import java.util.*;
 
@@ -7,18 +9,29 @@ public class Main {
     public static HashMap<String, ArrayList<Person>> peopleMap = new HashMap<>();
     public static ArrayList<Person> people;
     public static String country;
+    public static HashMap<String, ArrayList<Person>> peopleMap2 = new HashMap<>();
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         people = readFile(PEOPLE);
         addToPeopleMap();
 
-        for (String country : peopleMap.keySet()) {
-            ArrayList<Person> personArrayList = new ArrayList<>();
-
-
-        }
+//        for (String country : peopleMap.keySet()) {
+//            ArrayList<Person> personArrayList = peopleMap.get(country);
+//            Collections.sort(personArrayList);
+//            peopleMap2.put(country,personArrayList);
+//        }
         System.out.println(peopleMap);
+        File peopleJson = new File("people.json");
+        JsonSerializer serializer = new JsonSerializer();
+        PersonWrapper wrapper = new PersonWrapper();
+        wrapper.people = peopleMap.get(country);
+        String json = serializer.deep(true).serialize(wrapper);
+        FileWriter writeJson = new FileWriter(peopleJson);
+        writeJson.append(json);
+        writeJson.close();
+
+
 
     }
     public static ArrayList<Person> readFile(String peopleTextFile) throws FileNotFoundException {
