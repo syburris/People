@@ -12,18 +12,9 @@ public class Main {
         HashMap<String, ArrayList<Person>> peopleMap = new HashMap<>();
         ArrayList<Person> people = readFile();
         addToPeopleMap(people,peopleMap);
-
-        for (String country : peopleMap.keySet()) {
-            ArrayList<Person> personArrayList = peopleMap.get(country);
-            Collections.sort(personArrayList);
-        }
+        sortPeople(peopleMap);
+        writeJson(peopleMap);
         System.out.println(peopleMap);
-        File peopleJson = new File("people.json");
-        JsonSerializer serializer = new JsonSerializer();
-        String json = serializer.deep(true).serialize(peopleMap);
-        FileWriter writeJson = new FileWriter(peopleJson);
-        writeJson.append(json);
-        writeJson.close();
 
 
 
@@ -53,6 +44,20 @@ public class Main {
             peopleByCountry.add(person);
             peopleMap.put(country,peopleByCountry);
         }
-        //Collections.sort(peopleByCountry);
+    }
+    public static void sortPeople(HashMap<String, ArrayList<Person>> peopleMap) {
+        for (String country : peopleMap.keySet()) {
+            ArrayList<Person> personArrayList = peopleMap.get(country);
+            Collections.sort(personArrayList);
+        }
+    }
+
+    public static void writeJson(HashMap<String, ArrayList<Person>> peopleMap) throws IOException {
+        File peopleJson = new File("people.json");
+        JsonSerializer serializer = new JsonSerializer();
+        String json = serializer.deep(true).serialize(peopleMap);
+        FileWriter writeJson = new FileWriter(peopleJson);
+        writeJson.append(json);
+        writeJson.close();
     }
 }
