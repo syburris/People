@@ -7,7 +7,6 @@ public class Main {
 
     static final String PEOPLE = "People.txt";
 
-
     public static void main(String[] args) throws IOException {
         HashMap<String, ArrayList<Person>> peopleMap = new HashMap<>();
         ArrayList<Person> people = readFile();
@@ -15,8 +14,6 @@ public class Main {
         sortPeople(peopleMap);
         writeJson(peopleMap);
         System.out.println(peopleMap);
-
-
 
     }
     public static ArrayList<Person> readFile() throws FileNotFoundException {
