@@ -11,16 +11,14 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         people = readFile(PEOPLE);
-        addToPeopleMap();
+        sortPeople();
+
         for (String country : peopleMap.keySet()) {
             ArrayList<Person> personArrayList = new ArrayList<>();
 
 
-
         }
-        System.out.println(peopleMap.get("France").toString());
-
-
+        System.out.println(peopleMap);
 
     }
     public static ArrayList<Person> readFile(String peopleTextFile) throws FileNotFoundException {
@@ -36,15 +34,17 @@ public class Main {
         }
         return people;
     }
-    public static void addToPeopleMap() {
+    public static void sortPeople() {
+        ArrayList<Person> peopleByCountry = null;
         for (Person person : people) {
             String country = person.getCountry();
-            ArrayList<Person> peopleByCountry = peopleMap.get(country);
+            peopleByCountry = peopleMap.get(country);
             if (peopleByCountry == null) {
                 peopleByCountry = new ArrayList<>();
             }
             peopleByCountry.add(person);
             peopleMap.put(country,peopleByCountry);
         }
+        Collections.sort(peopleByCountry);
     }
 }
