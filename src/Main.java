@@ -6,27 +6,21 @@ import java.util.*;
 public class Main {
 
     static final String PEOPLE = "People.txt";
-    public static HashMap<String, ArrayList<Person>> peopleMap = new HashMap<>();
-    public static ArrayList<Person> people;
-    public static String country;
-    public static HashMap<String, ArrayList<Person>> peopleMap2 = new HashMap<>();
 
 
     public static void main(String[] args) throws IOException {
-        people = readFile(PEOPLE);
-        addToPeopleMap();
+        HashMap<String, ArrayList<Person>> peopleMap = new HashMap<>();
+        ArrayList<Person> people = readFile();
+        addToPeopleMap(people,peopleMap);
 
-//        for (String country : peopleMap.keySet()) {
-//            ArrayList<Person> personArrayList = peopleMap.get(country);
-//            Collections.sort(personArrayList);
-//            peopleMap2.put(country,personArrayList);
-//        }
+        for (String country : peopleMap.keySet()) {
+            ArrayList<Person> personArrayList = peopleMap.get(country);
+            Collections.sort(personArrayList);
+        }
         System.out.println(peopleMap);
         File peopleJson = new File("people.json");
         JsonSerializer serializer = new JsonSerializer();
-        PersonWrapper wrapper = new PersonWrapper();
-        wrapper.people = peopleMap.get(country);
-        String json = serializer.deep(true).serialize(wrapper);
+        String json = serializer.deep(true).serialize(peopleMap);
         FileWriter writeJson = new FileWriter(peopleJson);
         writeJson.append(json);
         writeJson.close();
@@ -34,7 +28,7 @@ public class Main {
 
 
     }
-    public static ArrayList<Person> readFile(String peopleTextFile) throws FileNotFoundException {
+    public static ArrayList<Person> readFile() throws FileNotFoundException {
         ArrayList<Person> people = new ArrayList<>();
         File file = new File(PEOPLE);
         Scanner fileScanner = null;
@@ -47,7 +41,7 @@ public class Main {
         }
         return people;
     }
-    public static void addToPeopleMap() {
+    public static void addToPeopleMap(ArrayList<Person> people, HashMap<String, ArrayList<Person>> peopleMap) {
         ArrayList<Person> peopleByCountry = null;
         for (Person person : people) {
             String country = person.getCountry();
