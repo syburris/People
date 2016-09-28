@@ -34,5 +34,12 @@ public class Tests {
         assertTrue(!peopleMap.isEmpty());
     }
 
+    @Test
+    public void testWriteJson() {
+        // Given
+        HashMap<String, ArrayList<Person>> peopleMap = new HashMap<>();
+
+    }
+
 
 }
